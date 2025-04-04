@@ -40,22 +40,10 @@ const Cards = () => {
   ];
 
   const columns = [
-    {
-      title: 'Campo',
-      dataIndex: 'field',
-      key: 'field',
-    },
-    {
-      title: 'Registros',
-      dataIndex: 'count',
-      key: 'count',
-    },
-    {
-      title: 'Ejemplo',
-      dataIndex: 'example',
-      key: 'example',
-    },
-  ];
+      { title: 'Campo', dataIndex: 'field', key: 'field' },
+      { title: 'Registros', dataIndex: 'count', key: 'count' },
+      { title: 'Ejemplo', dataIndex: 'example', key: 'example' },
+    ];
 
   return (
     <div className="flex flex-wrap justify-center gap-6 pt-4">
