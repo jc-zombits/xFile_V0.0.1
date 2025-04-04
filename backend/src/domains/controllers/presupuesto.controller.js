@@ -80,15 +80,27 @@ export const presupuestoController = {
       const [totalRecords, fieldsSummaryRaw, totals] = await Promise.all([
         Presupuesto.count(),
         sequelize.query(`
-          SELECT 
-            column_name as field
-          FROM information_schema.columns
-          WHERE table_name = 'ejecucion_presupuestal'
-          AND column_name IN (
-            'fondo', 'centro_gestor', 'posicion_presupuestaria', 
-            'area_funcional', 'proyecto', 'ppto_inicial', 
-            'disponible_neto', 'porcentaje_ejecucion'
-          )
+          SELECT
+            'ppto_inicial' AS field,
+            COUNT(ppto_inicial) AS count,
+            MIN(ppto_inicial) AS example
+          FROM ejecucion_presupuestal
+
+          UNION
+
+          SELECT
+            'disponible_neto' AS field,
+            COUNT(disponible_neto) AS count,
+            MIN(disponible_neto) AS example
+          FROM ejecucion_presupuestal
+
+          UNION
+
+          SELECT
+            'porcentaje_ejecucion' AS field,
+            COUNT(porcentaje_ejecucion) AS count,
+            MIN(porcentaje_ejecucion) AS example
+          FROM ejecucion_presupuestal;
         `),
         Presupuesto.findOne({
           attributes: [
