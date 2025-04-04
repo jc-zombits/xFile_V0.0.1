@@ -1,5 +1,5 @@
-import { initModels } from '../../config/database.js';
 import { processExcel } from '../../services/excel/excelParser.js';
+import { initModels, sequelize } from '../../config/database.js';
 import fs from 'fs';
 import path from 'path';
 
@@ -76,14 +76,12 @@ export const presupuestoController = {
   getDataSummary: async (req, res) => {
     try {
       const { Presupuesto } = await initModels();
-      
-      const [totalRecords, fieldsSummary, totals] = await Promise.all([
+
+      const [totalRecords, fieldsSummaryRaw, totals] = await Promise.all([
         Presupuesto.count(),
         sequelize.query(`
           SELECT 
-            column_name as field,
-            COUNT(column_name) as count,
-            (SELECT ${column_name} FROM ejecucion_presupuestal WHERE ${column_name} IS NOT NULL LIMIT 1) as example
+            column_name as field
           FROM information_schema.columns
           WHERE table_name = 'ejecucion_presupuestal'
           AND column_name IN (
@@ -91,7 +89,6 @@ export const presupuestoController = {
             'area_funcional', 'proyecto', 'ppto_inicial', 
             'disponible_neto', 'porcentaje_ejecucion'
           )
-          GROUP BY column_name
         `),
         Presupuesto.findOne({
           attributes: [
@@ -105,9 +102,10 @@ export const presupuestoController = {
 
       res.json({
         totalRecords,
-        fields: fieldsSummary[0],
+        fields: fieldsSummaryRaw[0],
         totals
       });
+
     } catch (error) {
       res.status(500).json({ 
         success: false,
@@ -115,6 +113,7 @@ export const presupuestoController = {
       });
     }
   }
+
 };
 
 export default presupuestoController;
