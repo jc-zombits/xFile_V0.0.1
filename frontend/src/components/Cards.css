@@ -1,0 +1,17 @@
+.card-hover:hover {
+    transform: scale(1.01); /* Aumenta 2% el tamaño */
+  }
+  
+  .card-hover:hover .ant-card-head {
+    background-color: var(--hover-color) !important; /* Usamos CSS variables */
+  }
+  
+  .card-hover:hover .ant-card-body {
+    background-color: var(--hover-color) !important;
+  }
+  
+  /* Inyectamos los colores hover dinámicamente */
+  .card-hover:nth-child(1) { --hover-color: #e0f2fe; }
+  .card-hover:nth-child(2) { --hover-color: #dcfce7; }
+  .card-hover:nth-child(3) { --hover-color: #ffedd5; }
+  .card-hover:nth-child(4) { --hover-color: #f3e8ff; }

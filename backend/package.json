@@ -1,0 +1,39 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm run migrate",
+    "start": "node --max-old-space-size=4096 src/app.js",
+    "migrate": "node src/runMigrations.js",
+    "migrate:create": "sequelize-cli migration:generate --name",
+    "migrate:reset": "npm run migrate:create reset-db && npm run migrate",
+    "dev": "nodemon --delay 2.5 src/app.js",
+    "dev:full": "npm run migrate && nodemon --delay 1 src/app.js",
+    "test": "NODE_ENV=test jest --forceExit --detectOpenHandles",
+    "db:check": "node src/utils/checkTables.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "exceljs": "^4.4.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "multer": "^1.4.5-lts.2",
+    "pg": "^8.14.1",
+    "sequelize": "^6.37.7",
+    "sequelize-cli": "^6.6.2",
+    "umzug": "^3.8.2",
+    "winston": "^3.17.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.9"
+  }
+}
