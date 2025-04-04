@@ -133,7 +133,7 @@ const Cards = () => {
                   </div>
                   <div className="bg-amber-50 p-3 rounded">
                     <h4 className="font-medium">% Ejecución</h4>
-                    <p className="text-2xl">{summaryData.totals.ejecucion_percentage?.toFixed(2) || '0'}%</p>
+                    <p className="text-2xl">{Number(summaryData.totals.ejecucion_percentage)?.toFixed(2) || '0'}%</p>
                   </div>
                 </div>
               )}
